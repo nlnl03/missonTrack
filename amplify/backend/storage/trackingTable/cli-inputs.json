@@ -1,0 +1,10 @@
+{
+  "resourceName": "trackingTable",
+  "tableName": "trackingTable",
+  "partitionKey": {
+    "fieldName": "id",
+    "fieldType": "string"
+  },
+  "gsi": [],
+  "triggerFunctions": []
+}
