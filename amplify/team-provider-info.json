@@ -1,0 +1,33 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-missiontrack-dev-205638-authRole",
+      "UnauthRoleArn": "arn:aws:iam::896307705525:role/amplify-missiontrack-dev-205638-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::896307705525:role/amplify-missiontrack-dev-205638-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-missiontrack-dev-205638-deployment",
+      "UnauthRoleName": "amplify-missiontrack-dev-205638-unauthRole",
+      "StackName": "amplify-missiontrack-dev-205638",
+      "StackId": "arn:aws:cloudformation:us-east-1:896307705525:stack/amplify-missiontrack-dev-205638/e399a0d0-5715-11ee-bba7-12d08bb1f9dd",
+      "AmplifyAppId": "d2x4ob1js2f4rv",
+      "APIGatewayAuthURL": "https://s3.amazonaws.com/amplify-missiontrack-dev-205638-deployment/amplify-cfn-templates/api/APIGatewayAuthStack.json"
+    },
+    "categories": {
+      "function": {
+        "missiontrack9dbd81b1": {
+          "deploymentBucketName": "amplify-missiontrack-dev-205638-deployment",
+          "s3Key": "amplify-builds/missiontrack9dbd81b1-7763495652786a413133-build.zip"
+        }
+      },
+      "auth": {
+        "missiontrack": {}
+      },
+      "storage": {
+        "missionTable": {}
+      },
+      "api": {
+        "apie83761d5": {}
+      }
+    }
+  }
+}

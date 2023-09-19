@@ -1,0 +1,65 @@
+<template>
+  <nav>
+    <router-link to="/">Home</router-link> |
+    <router-link to="/about">About</router-link>
+  </nav>
+
+   <router-view/>
+</template>
+
+<script>
+import axios from 'axios'
+ export default {
+  name: 'App',
+  data() {
+    return {
+      user: {}
+    }
+  },
+  methods:{
+    async fetchData() {
+      const apiBaseUrl = 'https://caoghxw10k.execute-api.us-east-1.amazonaws.com/dev/items';
+
+      try {
+        const response = await axios.get(`${apiBaseUrl}`, {
+          headers: {
+           
+            "Authorization": "Bearer K5orqXyTx87SGHf3Q4d2YaVcZlPRB0eG6uyxNfoH"  // If using token-based authentication
+          },
+      });
+        console.log(response)
+       } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    },
+
+  },
+  beforeMount() {
+    this.fetchData()
+  }
+ }
+ 
+</script>
+
+<style>
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+}
+
+nav {
+  padding: 30px;
+}
+
+nav a {
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+nav a.router-link-exact-active {
+  color: #42b983;
+}
+</style>
