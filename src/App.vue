@@ -21,12 +21,7 @@ import axios from 'axios'
       const apiBaseUrl = 'https://caoghxw10k.execute-api.us-east-1.amazonaws.com/dev/items';
 
       try {
-        const response = await axios.get(`${apiBaseUrl}`, {
-          headers: {
-           
-            "Authorization": "Bearer K5orqXyTx87SGHf3Q4d2YaVcZlPRB0eG6uyxNfoH"  // If using token-based authentication
-          },
-      });
+        const response = await axios.get(apiBaseUrl)
         console.log(response)
        } catch (error) {
         console.error('Error fetching data:', error);
