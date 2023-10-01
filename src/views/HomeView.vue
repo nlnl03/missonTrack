@@ -1,12 +1,19 @@
 <template>
-  <div class="main">
+  <div class="button">
     <div class="start-mission-div">
       <router-link class="start-mission-btn" :to="{name:'newMission'}">
           <i class="fas fa-plus-circle"></i>
           <span class="start-mission-text">התחל משימה</span>
       </router-link>
   </div>
- </div>
+ </div> 
+
+    <div class="img">  
+      
+      <img class="zameret-icon" src="../assets/383zameret.png" alt="">
+      <span class="credit">פותח ע"י נעם לביא</span>
+    </div>
+       
 </template>
 
 <script>
@@ -20,10 +27,10 @@ export default {
 </script>
 
 <style scoped>
-.main{
+.button{
   display: flex;
   justify-content: center;
-}
+ }
 .start-mission-div{
   display: flex;
   justify-content: center;
@@ -40,5 +47,22 @@ export default {
 }
 .start-mission-text{
   margin-left: 20px;
+}
+.img{
+  display: flex;
+  position: absolute;
+  bottom: 50px;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+    color: white;
+ }
+.zameret-icon{
+  width: 90px;
+ }
+.credit{
+  margin-left: 35px;
+  font-size: 30px;
+  margin-top: 25px;
 }
 </style>

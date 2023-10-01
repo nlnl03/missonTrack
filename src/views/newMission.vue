@@ -1,5 +1,7 @@
 <template>
- <div class="main-form">
+  <loadingSpinner v-if="!isLoading"/>
+  
+ <div class="main-form" v-if="isLoading">
    <q-form class="q-gutter-md">
     <div class="flex-inputs">
      <q-input
@@ -17,19 +19,32 @@
      </div>
    </q-form>
  </div>
- 
+
  
  </template>
 
 <script>
+import loadingSpinner from '../components/loadingSpinner.vue'
 export default {
-data(){
- return{
-  bgColor: '#ffffff4a',
-  name:'',
-  numOfFacility:null
+ components:{
+   loadingSpinner
+ },
+ data(){
+   return{
+    bgColor: '#ffffff4a',
+    name:'',
+    numOfFacility:null,
+    isLoading: false,
+   }
+ },
+ methods:{
+
+ },
+ beforeMount(){
+  setTimeout(() => {
+   this.isLoading = true; // Set to false when data loading is complete
+  }, 1000);
  }
-}
 }
 </script>
 
