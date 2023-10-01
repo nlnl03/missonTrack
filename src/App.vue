@@ -1,6 +1,8 @@
 <template>
+  <div class="background-opacity"></div>
+    <div class="title">עקובי</div>
+     <router-view/>
  
-   <router-view/>
 </template>
 
 <script>
@@ -33,6 +35,10 @@ import axios from 'axios'
 </script>
 
 <style>
+@font-face {
+  font-family: OpenSans;
+  src: url('@/assets/OpenSans.ttf');
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -53,11 +59,42 @@ nav a {
 nav a.router-link-exact-active {
   color: #42b983;
 }
-body{
-  background-image: url("@/assets/kiria.jpeg");
+ *:not(i),body:not(i){
+  font-family: OpenSans !important;
+}
+ .background-opacity{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('@/assets/kiria.jpeg'); /* Replace with your image URL */
+  background-size: cover;
+  z-index: -1; /* Place the overlay behind other content */
   background-attachment: fixed;
   background-position: 60%;
   background-repeat: no-repeat;
   background-size: cover; 
+
 }
-</style>
+.background-opacity::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7); /* Adjust the alpha (last) value for opacity */
+}
+
+ .rtl-input .q-field__label {
+  text-align: right !important;
+}
+.title{
+  font-size: 120px;
+  font-weight: 700;
+  color: white;
+  margin: 50px 0;
+}
+
+ </style>
