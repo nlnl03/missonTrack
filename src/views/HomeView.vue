@@ -35,34 +35,33 @@ export default {
   display: flex;
   justify-content: center;
   margin: 0 10%;
-  width: 500px;
-  padding: 1.5em;
-  border-radius: 30px;
-  background-color: rgba(0,0,0,0.4);
+   padding: 1.5em 2.8em;
+   border-radius: 30px;
+  background-color: rgba(0,0,0,0.5);
 }
 .start-mission-btn{
   color: white;
   text-decoration: none;
-  font-size: 60px;
-}
+  font-size: 30px ;
+ }
 .start-mission-text{
   margin-left: 20px;
 }
 .img{
   display: flex;
   position: absolute;
-  bottom: 50px;
+  bottom: 30px;
   width: 100%;
   justify-content: center;
   align-items: center;
-    color: white;
+  color: white;
  }
 .zameret-icon{
-  width: 90px;
- }
+  width: 40px;
+}
 .credit{
-  margin-left: 35px;
-  font-size: 30px;
-  margin-top: 25px;
+  margin-left: 12px;
+  font-size: 20px;
+  margin-top: 20px;
 }
 </style>

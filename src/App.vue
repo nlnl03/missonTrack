@@ -91,10 +91,17 @@ nav a.router-link-exact-active {
   text-align: right !important;
 }
 .title{
-  font-size: 120px;
+  font-size: 100px;
   font-weight: 700;
   color: white;
   margin: 50px 0;
 }
+.q-radio__inner{
+  color: gray !important;
+}
+.q-field--filled .q-field__control{
+  background: rgba(71, 71, 71, 0.7) !important;
+  color: white !important;
+}
 
- </style>
+  </style>

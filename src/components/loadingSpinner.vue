@@ -1,5 +1,5 @@
 <template>
-  <div class="q-pa-md">
+  <div>
      <q-spinner size="80px" color="white" />
   </div>
 </template>
@@ -16,4 +16,9 @@ export default {
 </script>
 
 <style scoped>
+.q-pa-md{
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
 </style>
