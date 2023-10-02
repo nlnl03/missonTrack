@@ -1,6 +1,5 @@
 <template>
   <div class="background-opacity"></div>
-    <div class="title">עקובי</div>
      <router-view/>
  
 </template>
@@ -89,19 +88,26 @@ nav a.router-link-exact-active {
 
  .rtl-input .q-field__label {
   text-align: right !important;
-}
-.title{
-  font-size: 100px;
-  font-weight: 700;
-  color: white;
-  margin: 50px 0;
-}
+ }
+
 .q-radio__inner{
   color: gray !important;
 }
 .q-field--filled .q-field__control{
   background: rgba(71, 71, 71, 0.7) !important;
-  color: white !important;
-}
 
+ }
+ .q-field__label, .q-field__native, .q-field__input{
+  color: white !important;
+ }
+ .q-field__label{
+  opacity: 0.6;
+  margin-bottom: 20px;
+ }
+ .q-field__label::after{
+  opacity: 1;
+ }
+ .q-field--labeled .q-field__native, .q-field--labeled .q-field__prefix, .q-field--labeled .q-field__suffix{
+  padding-top: 29px !important;
+ }
   </style>

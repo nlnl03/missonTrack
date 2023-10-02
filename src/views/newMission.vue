@@ -1,4 +1,5 @@
 <template>
+  <div class="title">צ'ק ליסט יציאה לתקלה</div>
   <loadingSpinner v-if="!isLoading"/>
   
  <div class="main-form" v-if="isLoading">
@@ -13,6 +14,7 @@
               :val="name"
               :label="name" 
               color="white"
+              class="radio-inputs"
           />
           
        </div>
@@ -48,6 +50,10 @@ export default {
     nameVal:'',
     numOfFacility:null,
     isLoading: false,
+    vsal:[
+      {fdfdf:'fdffd'},
+      this.nameVal,
+    ]
   }
  },
  methods:{
@@ -62,6 +68,13 @@ export default {
 </script>
 
 <style scoped>
+.title{
+    font-size: 35px;
+  font-weight: 700;
+  color: white;
+  margin: 50px 0;
+
+}
 .main-form{
   display: flex;
   justify-content: center;
@@ -86,6 +99,8 @@ export default {
   display: flex;
   flex-direction: column;
   margin-bottom: 10%;
+}
+ .radio-inputs{
+  margin-bottom: 5%;
  }
- 
 </style>

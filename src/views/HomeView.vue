@@ -1,4 +1,6 @@
 <template>
+    <div class="home-title">עקובי</div>
+
   <div class="button">
     <div class="start-mission-div">
       <router-link class="start-mission-btn" :to="{name:'newMission'}">
@@ -27,6 +29,12 @@ export default {
 </script>
 
 <style scoped>
+.home-title{
+  font-size: 100px;
+  font-weight: 700;
+  color: white;
+  margin: 50px 0;
+}
 .button{
   display: flex;
   justify-content: center;
