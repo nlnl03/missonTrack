@@ -4,13 +4,12 @@
   
  <div class="main-form" v-if="isLoading">
    <q-form class="q-gutter-md">
-    <div class="flex-inputs">
-      <div class="q-pa-md">
-        <label style="text-align:right; margin-bottom:20px">שם הטכנאי/ת שיוצא/ת למשימה:</label>
+    <div class="flex-inputs" v-for="(item, index) in exitCheckList" :key="index" >
+      <div class="q-pa-md" v-if="item.type == 'radio'">
+        <label style="text-align:right; margin-bottom:20px">{{ item.label }}:</label>
           <q-radio
-            v-for="(name, index) in names"
-            :key="index"
-              v-model="nameVal" 
+            v-for="(name,index) in item.options" :key="index"
+              v-model="item.value" 
               :val="name"
               :label="name" 
               color="white"
@@ -19,25 +18,41 @@
           
        </div>
 
-     <q-input
-        dir="rtl"
-         filled
-         v-model="numOfFacility"
-         type="number"
-         color="white"
-         label="מספר המתקן"
-         bg-color="light-grey"
-         lazy-rules
-          :rules="[val => val && val.length > 0 || 'זהו שדה חובה.']"
-       />
-     </div>
-   </q-form>
+      <div class="input-text" v-if="item.type == 'text'">
+        <q-input
+            dir="rtl"
+            filled
+            v-model="item.value"
+            type="number"
+            color="white"
+            label="מספר המתקן"
+            bg-color="light-grey"
+            lazy-rules
+            :rules="[val => val && val.length > 0 || 'זהו שדה חובה.']"
+          />
+      </div>
+
+      <div class="q-pa-md" v-if="item.type == 'checkbox'">
+        <label style="text-align:right; margin-bottom:20px">{{ item.label }}:</label>
+        <q-checkbox
+          v-for="(option,index) in item.options" :key="index"
+            v-model="option.checked" 
+            keep-color
+          :label="option.opt"
+           
+           class="checkbox"
+        />
+
+      </div>
+    </div>
+  </q-form>
  </div>
 
  
  </template>
 
 <script>
+import axios from 'axios'
 import loadingSpinner from '../components/loadingSpinner.vue'
 export default {
  components:{
@@ -45,31 +60,35 @@ export default {
  },
  data(){
    return{
-    bgColor: `rgba(128, 128, 128, 0.9)`,
-    names:['אביב גנון','איתי גרנות מור','נאור שמסיאן','מקסים דשבסקי','מתן ההברמן'],
-    nameVal:'',
+    exitCheckList:[],
     numOfFacility:null,
     isLoading: false,
-    vsal:[
-      {fdfdf:'fdffd'},
-      this.nameVal,
-    ]
   }
  },
  methods:{
-
+    async getExitCheckList(){
+       const apiBaseUrl = "https://caoghxw10k.execute-api.us-east-1.amazonaws.com/dev/items";
+        try {
+            const response = await axios.get(apiBaseUrl)
+            this.exitCheckList = response.data[0]["exitCheckList"]
+            console.log(this.exitCheckList)
+        } catch (error) {
+          console.error('Error fetching data:', error);
+        }
+    }
  },
- beforeMount(){
-  setTimeout(() => {
-   this.isLoading = true; // Set to false when data loading is complete
-  }, 1000);
- }
+  async beforeMount(){
+     await this.getExitCheckList()
+      setTimeout(() => {
+          this.isLoading = true;  
+      }, 1000);
+  }
 }
 </script>
 
 <style scoped>
 .title{
-    font-size: 35px;
+  font-size: 35px;
   font-weight: 700;
   color: white;
   margin: 50px 0;
@@ -86,21 +105,25 @@ export default {
   margin: 0 !important;
   width: 92%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
   border-radius: 20px;
-    background-color: rgba(0,0,0,0.5);
+  background-color: rgba(0,0,0,0.5);
 }
 .flex-inputs{
   width: 80%;
-  margin:5% 0;
-  color: white;
+   color: white;
 }
  .q-pa-md{
   display: flex;
   flex-direction: column;
   margin-bottom: 10%;
 }
- .radio-inputs{
-  margin-bottom: 5%;
+ .radio-inputs, .checkbox{
+  margin-bottom: 4%;
+  font-size: 20px;
  }
+ /* .checkbox{
+   } */
 </style>

@@ -5,7 +5,6 @@
 </template>
 
 <script>
-import axios from 'axios'
  export default {
   name: 'App',
   data() {
@@ -15,14 +14,7 @@ import axios from 'axios'
   },
   methods:{
     async fetchData() {
-      const apiBaseUrl = 'https://caoghxw10k.execute-api.us-east-1.amazonaws.com/dev/items';
-
-      try {
-        const response = await axios.get(apiBaseUrl)
-        console.log(response)
-       } catch (error) {
-        console.error('Error fetching data:', error);
-      }
+     
     },
 
   },
