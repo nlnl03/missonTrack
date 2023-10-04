@@ -43,14 +43,26 @@ export default {
   display: flex;
   justify-content: center;
   margin: 0 10%;
-   padding: 1.5em 2.8em;
+   /* padding: 1.5em 2.8em; */
+   width: 280px;
+   height: 70px;
    border-radius: 30px;
   background-color: rgba(0,0,0,0.5);
 }
 .start-mission-btn{
-  color: white;
-  text-decoration: none;
-  font-size: 30px ;
+    color: white;
+    text-decoration: none;
+    font-size: 30px;
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    font-size: 30px;
+
  }
 .start-mission-text{
   margin-left: 20px;

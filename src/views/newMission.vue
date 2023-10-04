@@ -1,5 +1,6 @@
 <template>
-  <div class="title">צ'ק ליסט יציאה לתקלה</div>
+  <div class="title" v-if="isLoading">צ'ק ליסט יציאה לתקלה</div>
+  
   <loadingSpinner v-if="!isLoading"/>
   
  <div class="main-form" v-if="isLoading">
@@ -81,7 +82,7 @@ export default {
      await this.getExitCheckList()
       setTimeout(() => {
           this.isLoading = true;  
-      }, 1000);
+      }, 700);
   }
 }
 </script>

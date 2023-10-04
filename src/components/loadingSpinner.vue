@@ -1,6 +1,6 @@
 <template>
   <div>
-     <q-spinner size="80px" color="white" />
+     <q-spinner class="spinner" size="70px" color="white" />
   </div>
 </template>
 
@@ -16,9 +16,9 @@ export default {
 </script>
 
 <style scoped>
-.q-pa-md{
-  display: flex;
-  width: 100%;
-  justify-content: center;
-}
+.spinner{
+   
+  position: relative;
+  top: 250px;
+ }
 </style>
