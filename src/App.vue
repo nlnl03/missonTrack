@@ -67,7 +67,7 @@ nav a.router-link-exact-active {
   background-repeat: no-repeat;
   background-size: cover; 
 
-}
+}   
 .background-opacity::after {
   content: '';
   position: absolute;
@@ -102,4 +102,26 @@ nav a.router-link-exact-active {
  .q-field--labeled .q-field__native, .q-field--labeled .q-field__prefix, .q-field--labeled .q-field__suffix{
   padding-top: 29px !important;
  }
+
+ .q-item__section--side > .q-icon{
+    color: black !important;
+  }
+ .q-item{
+    min-height: 70px !important;
+ }
+ /* .q-expansion-item:not(:last-child){
+  border-bottom: 2px solid rgb(131, 131, 131)
+} */
+.q-card__section--vert {
+    padding: 0px !important;
+}
+ .q-item__label{
+  font-size: 18px;
+ }
+ .q-checkbox__bg{
+  border: 2px solid rgb(122 121 121 / 70%) !important;
+ }
+.q-gutter-x-md > *, [dir="rtl"] .q-gutter-md > *{
+  margin-right: 0 !important;
+}
   </style>
