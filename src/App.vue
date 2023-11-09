@@ -5,21 +5,25 @@
 </template>
 
 <script>
+ 
  export default {
   name: 'App',
+ 
   data() {
     return {
-      user: {}
+      currentRouteName: null,
     }
   },
   methods:{
-    async fetchData() {
-     
-    },
-
+ 
   },
-  beforeMount() {
-    this.fetchData()
+ 
+  watch: {
+    '$route'(){
+       this.currentRouteName = this.$route.fullPath
+        console.log(this.currentRouteName)
+    }
+   
   }
  }
  

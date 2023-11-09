@@ -2,7 +2,7 @@
   <!-- <div class="title" v-if="isLoading">צ'ק ליסט יציאה לתקלה</div>
   
   <loadingSpinner v-if="!isLoading"/> -->
-  
+
  <div class="main-form"  >
    <q-form class="q-gutter-md">
     <div class="flex-inputs" v-for="(item, index) in exitCheckList" :key="index" >

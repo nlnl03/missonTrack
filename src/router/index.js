@@ -1,8 +1,7 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import newMission from '../views/newMission.vue'
-import outForm from '../views/outForm.vue'
-const routes = [
+ const routes = [
   {
     path: '/',
     name: 'home',
@@ -13,11 +12,7 @@ const routes = [
     name: 'newMission',
     component: newMission
   },
-  {
-    path: '/outform',
-    name: 'outForm',
-    component: outForm
-  },
+   
 ]
 
 const router = createRouter({
