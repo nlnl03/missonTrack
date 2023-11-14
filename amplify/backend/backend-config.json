@@ -1,5 +1,19 @@
 {
   "api": {
+    "ExitForm": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "ExitCheckList"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "API Gateway"
+    },
     "apie83761d5": {
       "dependsOn": [
         {
@@ -42,6 +56,25 @@
     }
   },
   "function": {
+    "ExitCheckList": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributeEnvMap": {
+            "Arn": "TABLE_ARN",
+            "Name": "TABLE_NAME"
+          },
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "storage",
+          "resourceName": "ExitCheckList"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
     "missiontrack9dbd81b1": {
       "build": true,
       "dependsOn": [
@@ -63,6 +96,22 @@
     }
   },
   "parameters": {
+    "AMPLIFY_function_ExitCheckList_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "ExitCheckList"
+        }
+      ]
+    },
+    "AMPLIFY_function_ExitCheckList_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "ExitCheckList"
+        }
+      ]
+    },
     "AMPLIFY_function_missiontrack9dbd81b1_deploymentBucketName": {
       "usedBy": [
         {
@@ -81,6 +130,10 @@
     }
   },
   "storage": {
+    "ExitCheckList": {
+      "providerPlugin": "awscloudformation",
+      "service": "DynamoDB"
+    },
     "missionTable": {
       "providerPlugin": "awscloudformation",
       "service": "DynamoDB"

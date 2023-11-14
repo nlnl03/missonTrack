@@ -70,11 +70,16 @@ import axios from 'axios'
        const apiBaseUrl = "https://caoghxw10k.execute-api.us-east-1.amazonaws.com/dev/items";
         try {
             const response = await axios.get(apiBaseUrl)
-            this.exitCheckList = response.data[0]["exitCheckList"]
+            this.exitCheckList = response.data
             console.log(this.exitCheckList)
         } catch (error) {
           console.error('Error fetching data:', error);
         }
+    },
+    async get(){
+      const url = "https://3cqhug1vdk.execute-api.us-east-1.amazonaws.com/dev/items"
+      const res = await axios.get(url)
+      console.log(res.data)
     }
  },
   async beforeMount(){
@@ -82,6 +87,7 @@ import axios from 'axios'
       setTimeout(() => {
           this.isLoading = true;  
       }, 700);
+      this.get()
   }
 }
 </script>

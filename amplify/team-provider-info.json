@@ -16,17 +16,23 @@
       "function": {
         "missiontrack9dbd81b1": {
           "deploymentBucketName": "amplify-missiontrack-dev-205638-deployment",
-          "s3Key": "amplify-builds/missiontrack9dbd81b1-7763495652786a413133-build.zip"
+          "s3Key": "amplify-builds/missiontrack9dbd81b1-614b3043515962586265-build.zip"
+        },
+        "ExitCheckList": {
+          "deploymentBucketName": "amplify-missiontrack-dev-205638-deployment",
+          "s3Key": "amplify-builds/ExitCheckList-4b7856574551326c2b79-build.zip"
         }
       },
       "auth": {
         "missiontrack": {}
       },
       "storage": {
-        "missionTable": {}
+        "missionTable": {},
+        "ExitCheckList": {}
       },
       "api": {
-        "apie83761d5": {}
+        "apie83761d5": {},
+        "ExitForm": {}
       }
     }
   }

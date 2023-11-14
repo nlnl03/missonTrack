@@ -1,0 +1,14 @@
+{
+  "resourceName": "ExitCheckList",
+  "tableName": "ExitCheckList",
+  "partitionKey": {
+    "fieldName": "id",
+    "fieldType": "number"
+  },
+  "sortKey": {
+    "fieldName": "type",
+    "fieldType": "string"
+  },
+  "gsi": [],
+  "triggerFunctions": []
+}
