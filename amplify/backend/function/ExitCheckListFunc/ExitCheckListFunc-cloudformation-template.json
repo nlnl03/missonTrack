@@ -55,12 +55,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "ExitCheckList",
+            "ExitCheckListFunc",
             {
               "Fn::Join": [
                 "",
                 [
-                  "ExitCheckList",
+                  "ExitCheckListFunc",
                   "-",
                   {
                     "Ref": "env"
@@ -97,12 +97,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "missiontrackLambdaRole4a7f6034",
+            "missiontrackLambdaRolea94db3fd",
             {
               "Fn::Join": [
                 "",
                 [
-                  "missiontrackLambdaRole4a7f6034",
+                  "missiontrackLambdaRolea94db3fd",
                   "-",
                   {
                     "Ref": "env"

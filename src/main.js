@@ -6,7 +6,7 @@ import router from './router'
 // import awsConfig from './aws-exports';
 import { Quasar } from 'quasar'
 import quasarUserOptions from './quasar-user-options'
- 
+  
 
 // Amplify.configure(awsConfig);
 

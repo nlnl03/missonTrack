@@ -23,6 +23,18 @@
     "storagemissionTableArn": {
       "Type": "String",
       "Default": "storagemissionTableArn"
+    },
+    "storageExitCheckListName": {
+      "Type": "String",
+      "Default": "storageExitCheckListName"
+    },
+    "storageExitCheckListArn": {
+      "Type": "String",
+      "Default": "storageExitCheckListArn"
+    },
+    "storageExitCheckListStreamArn": {
+      "Type": "String",
+      "Default": "storageExitCheckListArn"
     }
   },
   "Conditions": {
@@ -199,6 +211,59 @@
             }
           ]
         }
+      }
+    },
+    "ExitCheckListTriggerPolicy": {
+      "DependsOn": [
+        "LambdaExecutionRole"
+      ],
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyName": "lambda-trigger-policy-ExitCheckList",
+        "Roles": [
+          {
+            "Ref": "LambdaExecutionRole"
+          }
+        ],
+        "PolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Action": [
+                "dynamodb:DescribeStream",
+                "dynamodb:GetRecords",
+                "dynamodb:GetShardIterator",
+                "dynamodb:ListStreams"
+              ],
+              "Resource": [
+                {
+                  "Ref": "storageExitCheckListStreamArn"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "ExitCheckListTrigger": {
+      "Type": "AWS::Lambda::EventSourceMapping",
+      "DependsOn": [
+        "ExitCheckListTriggerPolicy"
+      ],
+      "Properties": {
+        "BatchSize": 100,
+        "Enabled": true,
+        "EventSourceArn": {
+          "Ref": "storageExitCheckListStreamArn"
+        },
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "LambdaFunction",
+            "Arn"
+          ]
+        },
+        "StartingPosition": "LATEST"
       }
     }
   },

@@ -1,103 +1,142 @@
 <template>
   <router-link to="/" class="home-btn">
-    <q-icon name="fas fa-arrow-alt-circle-left fa-rotate-180" size="35px" color="white"></q-icon>
+    <q-icon
+      name="fas fa-arrow-alt-circle-left fa-rotate-180"
+      size="35px"
+      color="white"
+    ></q-icon>
   </router-link>
 
-  <div class="q-pa-md" >
+  <div class="q-pa-md">
     <div class="accordion">
-     
       <q-expansion-item
+      :no-transition="true"
         v-for="(item, index) in timelineItems"
         :key="index"
-        :label="item.date"
-         @click="goToPage(item,index)"
-        :ref="item+index"
-        :default-opened="index === 0"
-       >
-        <q-card style="background:none">
-          <q-card-section>
-            <component :is="item.component" />
-             
+        :label="item.title"
+        @click="goToPage(item, index)"
+        :ref="item + index"
+      >
+        <q-card style="background: none" :no-transition="true">
+          <q-card-section :no-transition="true">
+            <div class="loading-page" v-if="!isLoad[index]">
+              <loadingSpinner />
+            </div>
+            <formStruc :formData="formData" v-if="isLoad[index]" />
           </q-card-section>
         </q-card>
       </q-expansion-item>
-    
     </div>
   </div>
-
 </template>
 
 <script>
-import outForm from './outForm.vue'
+import axios from "axios";
+import formStruc from "./formStruc.vue";
+import loadingSpinner from "./loadingSpinner.vue";
 export default {
-    name:'mainAccordion',
-    components:{
-        outForm
-    },
+  name: "mainAccordion",
+  components: {
+    formStruc,
+    loadingSpinner,
+  },
   data() {
     return {
       timelineItems: [
         {
-          date: "צ'ק ליסט יציאה לתקלה",
-          content: 'Content for item 1',
-          component:'outForm',
-          pageRoute: '/page1', // Route path for page 1
+          title: "צ'ק ליסט יציאה לתקלה",
+          component: "formStruc",
+          url: "https://caoghxw10k.execute-api.us-east-1.amazonaws.com/dev/items",
         },
         {
-          date: 'Date 2',
-          content: 'Content for item 2',
-          pageRoute: '/page2', // Route path for page 2
-          component:'loadingSpinner',
+          title: "Date 2",
+          component: "loadingSpinner",
+          url: "https://12iuf7y4al.execute-api.us-east-1.amazonaws.com/dev/exitForm",
         },
         // Add more items as needed
       ],
-      isOpen:[],
-      ite:0,
-     }
+      isOpen: [],
+      ite: 0,
+      formData: [],
+      isLoad: [],
+    };
   },
   methods: {
     goToPage(item, index) {
-      this.ite = index
-      this.isOpen[index] = !this.isOpen[index]
-       console.log(this.isOpen)
+      this.ite = index;
+      this.isOpen[index] = !this.isOpen[index];
+      console.log(this.isOpen);
+      console.log(item);
 
-      
-       
+      if (this.isOpen[index]) {
+        this.getForms(item.url, index);
+      } else {
+        this.isLoad[index] = false;
+      }
+    },
+
+    async getForms(url, index) {
+      try {
+        const response = await axios.get(url);
+        this.formData = response.data;
+        this.formData = this.formData.sort((a, b) => a.id - b.id);
+        console.log(this.formData);
+
+        setTimeout(() => {
+          this.isLoad[index] = true;
+        }, 100);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
     },
   },
-  beforeMount(){
-    this.isOpen.length = this.timelineItems.length
-      // for(var i=0; i<this.isOpen.length;i++){
-      //   this.isOpen[i] = false
-      //   console.log(this.isOpen)
-      // }
-        console.log(this.isOpen)
+  beforeMount() {
+    this.isOpen.length = this.timelineItems.length;
+    this.isLoad.length = this.timelineItems.length;
+    this.isLoad.forEach((data) => {
+      data = false;
+      console.log(data);
+    });
+    // for(var i=0; i<this.isOpen.length;i++){
+    //   this.isOpen[i] = false
+    //   console.log(this.isOpen)
+    // }
+    console.log(this.isOpen);
+    console.log(this.isLoad);
   },
-    
 };
 </script>
 
 <style scoped>
-.q-pa-md{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    margin-top: 80px;
- 
+.q-pa-md {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-top: 80px;
 }
-.accordion{
-   width: 98%;
-   background-color: rgba(255, 255, 255, 0.664);
-   border-radius: 10px
+.accordion {
+  width: 98%;
+  background-color: rgba(255, 255, 255, 0.664);
+  border-radius: 10px;
 }
- .q-focus-helper, .q-focusable, .q-manual-focusable, .q-hoverable:first-child{
-     border-top-right-radius: 10px !important ;
-    border-top-left-radius: 10px !important;
+.q-focus-helper,
+.q-focusable,
+.q-manual-focusable,
+.q-hoverable:first-child {
+  border-top-right-radius: 10px !important ;
+  border-top-left-radius: 10px !important;
 }
-.home-btn{
+.home-btn {
   position: absolute;
   left: 5%;
   top: 5%;
-  }
- </style>
+}
+.loading-page {
+  height: 500px;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+</style>

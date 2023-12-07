@@ -28,7 +28,7 @@ const partitionKeyType = "N";
 const sortKeyName = "type";
 const sortKeyType = "S";
 const hasSortKey = sortKeyName !== "";
-const path = "/items";
+const path = "/exitForm";
 const UNAUTH = 'UNAUTH';
 const hashKeyPath = '/:' + partitionKeyName;
 const sortKeyPath = hasSortKey ? '/:' + sortKeyName : '';

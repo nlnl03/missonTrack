@@ -10,5 +10,7 @@
     "fieldType": "string"
   },
   "gsi": [],
-  "triggerFunctions": []
+  "triggerFunctions": [
+    "missiontrack9dbd81b1"
+  ]
 }

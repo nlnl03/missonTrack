@@ -1,9 +1,9 @@
 {
   "version": 1,
   "paths": {
-    "/items": {
-      "name": "/items",
-      "lambdaFunction": "ExitCheckList",
+    "/exitForm": {
+      "name": "/exitForm",
+      "lambdaFunction": "ExitCheckListFunc",
       "permissions": {
         "setting": "protected",
         "auth": [
