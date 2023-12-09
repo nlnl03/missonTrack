@@ -1,12 +1,15 @@
 <template>
-  <router-link to="/" class="home-btn">
+  <!-- <router-link to="/" class="home-btn">
     <q-icon
       name="fas fa-arrow-alt-circle-left fa-rotate-180"
       size="35px"
       color="white"
     ></q-icon>
-  </router-link>
+  </router-link> -->
 
+   <HorizontalTimeline/>
+
+   
   <div class="q-pa-md">
     <div class="accordion">
       <q-expansion-item
@@ -34,11 +37,14 @@
 import axios from "axios";
 import formStruc from "./formStruc.vue";
 import loadingSpinner from "./loadingSpinner.vue";
+import HorizontalTimeline from '../components/HorizontalTimeline.vue';
+
 export default {
   name: "mainAccordion",
   components: {
     formStruc,
     loadingSpinner,
+    HorizontalTimeline
   },
   data() {
     return {
@@ -113,7 +119,7 @@ export default {
   justify-content: center;
   align-items: center;
   width: 100%;
-  margin-top: 80px;
+  margin-top: 55px;
 }
 .accordion {
   width: 98%;
