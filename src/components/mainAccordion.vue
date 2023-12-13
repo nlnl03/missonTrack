@@ -7,18 +7,18 @@
     ></q-icon>
   </router-link> -->
 
-   <HorizontalTimeline/>
+  <HorizontalTimeline />
 
-   
   <div class="q-pa-md">
     <div class="accordion">
       <q-expansion-item
-      :no-transition="true"
+        :no-transition="true"
         v-for="(item, index) in timelineItems"
         :key="index"
         :label="item.title"
         @click="goToPage(item, index)"
         :ref="item + index"
+        :disable="index!=0"
       >
         <q-card style="background: none" :no-transition="true">
           <q-card-section :no-transition="true">
@@ -37,14 +37,14 @@
 import axios from "axios";
 import formStruc from "./formStruc.vue";
 import loadingSpinner from "./loadingSpinner.vue";
-import HorizontalTimeline from '../components/HorizontalTimeline.vue';
+import HorizontalTimeline from "./HorizontalTimeline.vue";
 
 export default {
   name: "mainAccordion",
   components: {
     formStruc,
     loadingSpinner,
-    HorizontalTimeline
+    HorizontalTimeline,
   },
   data() {
     return {
@@ -65,6 +65,7 @@ export default {
       ite: 0,
       formData: [],
       isLoad: [],
+      disableAcco: [],
     };
   },
   methods: {
@@ -88,9 +89,7 @@ export default {
         this.formData = this.formData.sort((a, b) => a.id - b.id);
         console.log(this.formData);
 
-        setTimeout(() => {
-          this.isLoad[index] = true;
-        }, 100);
+        this.isLoad[index] = true;
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -99,16 +98,14 @@ export default {
   beforeMount() {
     this.isOpen.length = this.timelineItems.length;
     this.isLoad.length = this.timelineItems.length;
-    this.isLoad.forEach((data) => {
-      data = false;
-      console.log(data);
-    });
-    // for(var i=0; i<this.isOpen.length;i++){
-    //   this.isOpen[i] = false
-    //   console.log(this.isOpen)
-    // }
-    console.log(this.isOpen);
-    console.log(this.isLoad);
+    this.disableAcco.length = this.timelineItems.length;
+
+    for (var i = 0; i < this.isOpen.length; i++) {
+      this.isOpen[i] = false;
+      this.isLoad[i] = false;
+    }
+    console.log("opening:" + this.isOpen);
+    console.log("loading:" + this.isLoad);
   },
 };
 </script>
@@ -119,7 +116,7 @@ export default {
   justify-content: center;
   align-items: center;
   width: 100%;
-  margin-top: 55px;
+  margin-top: 35px;
 }
 .accordion {
   width: 98%;

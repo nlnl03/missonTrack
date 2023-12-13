@@ -4,7 +4,7 @@
    <div class="order-tracking completed">
     <span class="is-complete"></span>
       <p>
-       שלב 1
+       יציאה למשימה
        <br>
        <span>Mon, June 24</span>
       </p>
@@ -12,7 +12,7 @@
    <div class="order-tracking completed">
      <span class="is-complete"></span>
        <p>
-        שלב 2
+        יציאה מהקרייה
         <br>
         <span>Tue, June 25</span>
        </p>
@@ -63,8 +63,8 @@ justify-content: center;
 	display: block;
 	position: relative;
 	border-radius: 50%;
-	height: 20px;
-	width: 20px;
+	height:27px;
+	width: 27px;
 	border: 0px solid #AFAFAF;
 	background-color: #f7be16;
 	margin: 0 auto;
@@ -72,19 +72,20 @@ justify-content: center;
 	-webkit-transition: background 0.25s linear;
 	z-index: 2;
 }
+
 .order-tracking .is-complete:after {
 	display: block;
 	position: absolute;
 	content: '';
-	height: 14px;
-	width: 7px;
-	top: -2px;
+	height: 7px;
+	width: 15px !important;
+	top: 5px;
 	bottom: 0;
-	left: 5px;
+	left: 14px !important;
 	margin: auto 0;
 	border: 0px solid #AFAFAF;
 	border-width: 0px 2px 2px 0;
-	transform: rotate(-45deg);
+	transform: translate(-50%, -50%) rotate(410deg);
 	opacity: 0;
 }
 .order-tracking.completed .is-complete{
@@ -107,7 +108,7 @@ justify-content: center;
 	line-height: 20px;
 }
 .order-tracking p span{font-size: 14px;}
-.order-tracking.completed p{color: #000;}
+.order-tracking.completed p{color: #fff;}
 .order-tracking::before {
 	content: '';
 	display: block;

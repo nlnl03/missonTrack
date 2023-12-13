@@ -6,11 +6,17 @@
   <div class="main-form">
     <q-form class="q-gutter-md">
       <div class="flex-inputs" v-for="(item, index) in formData" :key="index">
-        <div class="q-pa-md" v-if="item.type == 'radio'">
-          <label style="text-align: right; margin-bottom: 20px"
-            >{{ item.label }}:</label
-          >
-          <q-radio
+        <div v-if="item.type == 'radio'" style="margin-top: 30px">
+          <q-select
+            :label="item.label"
+            behavior="dialog"
+            filled
+            v-model="item.value"
+            :options="item.options"
+            class="radio-inputs"
+            :rules="[(val) => (val && val.length > 0) || 'זהו שדה חובה.']"
+          />
+          <!-- <q-radio
             v-for="(name, index) in item.options"
             :key="index"
             v-model="item.value"
@@ -18,7 +24,7 @@
             :label="name"
             color="white"
             class="radio-inputs"
-          />
+          /> -->
         </div>
 
         <div class="input-text" v-if="item.type == 'text'">
@@ -28,14 +34,14 @@
             v-model="item.value"
             type="number"
             color="white"
-            label="מספר המתקן"
+            :label="item.label"
             bg-color="light-grey"
             lazy-rules
             :rules="[(val) => (val && val.length > 0) || 'זהו שדה חובה.']"
           />
         </div>
 
-        <div class="q-pa-md" v-if="item.type == 'checkbox'">
+        <div class="q-pa-md" v-if="item.type == 'checkbox'" ref="checkBoxVal">
           <label style="text-align: right; margin-bottom: 20px"
             >{{ item.label }}:</label
           >
@@ -43,9 +49,11 @@
             v-for="(option, index) in item.options"
             :key="index"
             v-model="option.checked"
+            @change="validateCheckbox"
             keep-color
             :label="option.opt"
             class="checkbox"
+            :rules="[option.checked || 'זהו שדה חובה.']"
           />
         </div>
       </div>
@@ -56,14 +64,15 @@
           label="המשך"
           type="continue"
           color="primary"
-         />
+          @click="goNextBtn"
+        />
       </div>
     </q-form>
   </div>
 </template>
 
 <script>
- export default {
+export default {
   name: "outForm",
   components: {},
   props: {
@@ -74,10 +83,17 @@
       exitCheckList: [],
       numOfFacility: null,
       isLoading: false,
+      isCheckedValid: false,
     };
   },
   methods: {
-   },
+    validateCheckbox() {
+      console.log("djchdch");
+    },
+    goNextBtn() {
+      console.log(this.isCheckedValid);
+    },
+  },
   beforeMount() {
     //  setTimeout(() => {
     //   this.isLoading = true;
@@ -89,8 +105,9 @@
 <style scoped>
 .submit-btn {
   position: relative;
-  bottom: 20px;
- }
+  margin-top: 5px;
+  margin-bottom: 7%;
+}
 .title {
   font-size: 35px;
   font-weight: 700;
@@ -117,11 +134,12 @@
 .flex-inputs {
   width: 85%;
   color: white;
+  text-align: left;
 }
 .q-pa-md {
   display: flex;
   flex-direction: column;
-  margin-bottom: 5%;
+  /* margin-bottom: 5%; */
   padding: 16px 5px !important;
 }
 .radio-inputs,
@@ -129,6 +147,4 @@
   margin-bottom: 4%;
   font-size: 20px;
 }
-/* .checkbox{
-   } */
 </style>

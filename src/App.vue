@@ -106,7 +106,7 @@ body:not(i) {
   color: white !important;
 }
 .q-field__label {
-  opacity: 0.6;
+  opacity: 0.8;
   margin-bottom: 20px;
 }
 .q-field__label::after {
@@ -115,7 +115,7 @@ body:not(i) {
 .q-field--labeled .q-field__native,
 .q-field--labeled .q-field__prefix,
 .q-field--labeled .q-field__suffix {
-  padding-top: 29px !important;
+  padding: 15px 0 !important;
 }
 
 .q-item__section--side > .q-icon {
