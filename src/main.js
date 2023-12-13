@@ -6,8 +6,10 @@ import router from './router'
 // import awsConfig from './aws-exports';
 import { Quasar } from 'quasar'
 import quasarUserOptions from './quasar-user-options'
-  
+import VueSweetalert2 from 'vue-sweetalert2';
+import 'sweetalert2/dist/sweetalert2.min.css';
+
 
 // Amplify.configure(awsConfig);
 
-createApp(App).use(Quasar, quasarUserOptions).use(router).mount('#app')
+createApp(App).use(Quasar, quasarUserOptions).use(VueSweetalert2).use(router).mount('#app')

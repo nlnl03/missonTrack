@@ -64,7 +64,7 @@
           label="המשך"
           type="continue"
           color="primary"
-          @click="goNextBtn"
+          @click="triggerFunction"
         />
       </div>
     </q-form>
@@ -77,6 +77,11 @@ export default {
   components: {},
   props: {
     formData: Array,
+    triggerFunction: {
+      type: Function,
+      required: true,
+    },
+    index: Number,
   },
   data() {
     return {

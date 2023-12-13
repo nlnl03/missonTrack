@@ -16,16 +16,21 @@
         v-for="(item, index) in timelineItems"
         :key="index"
         :label="item.title"
-        @click="goToPage(item, index)"
-        :ref="item + index"
-        :disable="index!=0"
+        @click="showForm(item.url, index)"
+        :ref="`expansionItem${index}`"
+        :disable="allowNext(index)"
       >
         <q-card style="background: none" :no-transition="true">
           <q-card-section :no-transition="true">
             <div class="loading-page" v-if="!isLoad[index]">
               <loadingSpinner />
             </div>
-            <formStruc :formData="formData" v-if="isLoad[index]" />
+            <formStruc
+              :formData="formData"
+              :index="index"
+              v-if="isLoad[index]"
+              :triggerFunction="goNextBtn"
+            />
           </q-card-section>
         </q-card>
       </q-expansion-item>
@@ -55,56 +60,107 @@ export default {
           url: "https://caoghxw10k.execute-api.us-east-1.amazonaws.com/dev/items",
         },
         {
+          title: "יציאה מהקרייה",
+          component: "loadingSpinner",
+          url: "",
+        },
+        {
           title: "Date 2",
           component: "loadingSpinner",
           url: "https://12iuf7y4al.execute-api.us-east-1.amazonaws.com/dev/exitForm",
         },
         // Add more items as needed
       ],
-      isOpen: [],
-      ite: 0,
+      expandedItems: [],
       formData: [],
       isLoad: [],
-      disableAcco: [],
+      itemToAllow: 0,
+      ite: 0,
+      url: "",
     };
   },
   methods: {
-    goToPage(item, index) {
+    showForm(url, index) {
       this.ite = index;
-      this.isOpen[index] = !this.isOpen[index];
-      console.log(this.isOpen);
-      console.log(item);
+      this.url = url;
+      console.log("ite:" + this.ite);
 
-      if (this.isOpen[index]) {
-        this.getForms(item.url, index);
+      if (index == 0) {
+        this.triggerForm(url, index);
+      }
+    },
+    triggerForm(url, index) {
+      this.expandedItems[index] = !this.expandedItems[index];
+      console.log(this.expandedItems);
+      console.log(url);
+
+      if (this.expandedItems[index]) {
+        this.getForms(url, index);
       } else {
         this.isLoad[index] = false;
       }
     },
-
-    async getForms(url, index) {
-      try {
-        const response = await axios.get(url);
-        this.formData = response.data;
-        this.formData = this.formData.sort((a, b) => a.id - b.id);
-        console.log(this.formData);
-
-        this.isLoad[index] = true;
-      } catch (error) {
-        console.error("Error fetching data:", error);
+    goNextBtn() {
+      this.itemToAllow++;
+      console.log(this.itemToAllow);
+      this.$refs[`expansionItem${this.ite}`][0].toggle();
+      this.ite++;
+      console.log(this.ite);
+      if (this.ite < this.timelineItems.length - 1) {
+        console.log(this.ite);
+        this.$nextTick(() => {
+          this.$refs[`expansionItem${this.ite}`][0].toggle();
+          console.log(this.ite);
+          if (this.ite != 0) {
+            this.triggerForm(this.url, this.ite);
+          }
+        });
       }
     },
-  },
-  beforeMount() {
-    this.isOpen.length = this.timelineItems.length;
-    this.isLoad.length = this.timelineItems.length;
-    this.disableAcco.length = this.timelineItems.length;
 
-    for (var i = 0; i < this.isOpen.length; i++) {
-      this.isOpen[i] = false;
-      this.isLoad[i] = false;
-    }
-    console.log("opening:" + this.isOpen);
+    async getForms(url, index) {
+      console.log(index);
+      if (index == 1) {
+        this.$swal({
+          title: "האם אתה בטוח ?",
+          icon: "warning",
+          showCancelButton: true,
+          cancelButtonText: "ביטול",
+        }).then((res) => {
+          if (res.isConfirmed) {
+            this.goNextBtn();
+          }
+        });
+      } else {
+        try {
+          const response = await axios.get(url);
+          this.formData = response.data;
+          this.formData = this.formData.sort((a, b) => a.id - b.id);
+          console.log(this.formData);
+
+          this.isLoad[index] = true;
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        }
+      }
+    },
+    allowNext(index) {
+      console.log(this.itemToAllow);
+      if (index != this.itemToAllow) {
+        console.log("working");
+        return true;
+      }
+      console.log("yesss");
+    },
+  },
+
+  beforeMount() {},
+  created() {
+    // Initialize expandedItems with the same length as items and set all to false
+    this.expandedItems = new Array(this.timelineItems.length).fill(false);
+    this.isLoad = new Array(this.timelineItems.length).fill(false);
+
+    console.log("opening:" + this.expandedItems);
     console.log("loading:" + this.isLoad);
   },
 };
