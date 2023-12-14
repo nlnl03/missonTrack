@@ -1,6 +1,6 @@
 <template>
   <div class="background-opacity"></div>
-  <router-view  />
+  <router-view />
 </template>
 
 <script>
@@ -12,7 +12,7 @@ export default {
       currentRouteName: null,
       items: [],
       sortedItems: [],
-      isload:false
+      isload: false,
     };
   },
   methods: {},
@@ -30,8 +30,10 @@ export default {
 </script>
 
 <style>
-.q-expansion-item, .q-card, .q-card-section {
-  transition: none !important; 
+.q-expansion-item,
+.q-card,
+.q-card-section {
+  transition: none !important;
   animation: none !important;
 }
 
@@ -44,7 +46,7 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  }
+}
 
 nav {
   padding: 30px;
@@ -68,9 +70,9 @@ body:not(i) {
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url("@/assets/kiria.jpeg"); 
+  background-image: url("@/assets/kiria.jpeg");
   background-size: cover;
-  z-index: -1; 
+  z-index: -1;
   background-attachment: fixed;
   background-position: 50%;
   background-repeat: no-repeat;
@@ -82,12 +84,7 @@ body:not(i) {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(
-    0,
-    0,
-    0,
-    0.7
-  ); 
+  background-color: rgba(0, 0, 0, 0.7);
 }
 
 .rtl-input .q-field__label {
@@ -141,12 +138,15 @@ body:not(i) {
   margin-right: 0 !important;
 }
 
-
-.prevent-swal-title{
-  font-size: 1em !important;
+.prevent-swal-title {
+  font-size: 1.1em !important;
 }
 
-.swal-confirm-button{
- }
-
+.swal-confirm-button {
+  background-color: #27aa80 !important;
+}
+.swal-popup {
+  margin-bottom: 150px;
+  height: 330px;
+}
 </style>

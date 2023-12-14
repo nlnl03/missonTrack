@@ -35,12 +35,14 @@ export default {
       title: "האם את/ה בטוח/ה שברצונך לצאת מדף זה ?",
       icon: "warning",
       showCancelButton: true,
-      cancelButtomText: "ביטול",
+      cancelButtonText: "ביטול",
       confirmButtonText: "צא/י",
-      customClass:{
-        title:"prevent-swal-title",
-        confirmButton:"swal-confirm-button"
-      }
+      reverseButtons: true,
+      customClass: {
+        title: "prevent-swal-title",
+        confirmButton: "swal-confirm-button",
+        popup: "swal-popup",
+      },
     }).then((result) => {
       if (result.isConfirmed) {
         next();
@@ -67,5 +69,4 @@ export default {
   width: 100%;
   height: 70vh;
 }
-
 </style>

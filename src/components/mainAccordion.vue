@@ -60,15 +60,15 @@ export default {
         },
         {
           title: "יציאה מהקרייה",
-          url: "",
+          label: "אנא אשר/י כי ברצונך לצאת משטח הקרייה",
         },
         {
           title: "הגעה למתקן",
-          url: "",
+          label: "אנא אשר/י כי הגעת למתקן המיועד",
         },
         {
           title: "סיום משימה",
-          url: "",
+          label: "אנא אשר/י שסיימת את המשימה",
         },
         {
           title: "יציאה מהמתקן",
@@ -76,8 +76,8 @@ export default {
         },
         {
           title: "הגעה לבסיס",
-          url: "",
-        }
+          label: "אנא אשר/י כי הגעת לבסיס הקרייה",
+        },
         // Add more items as needed
       ],
       expandedItems: [],
@@ -98,7 +98,17 @@ export default {
         this.triggerForm(url, index);
       }
     },
+
+    openAuto(index) {
+      var localIndex = JSON.parse(localStorage.getItem("accordionIndex"));
+      setTimeout(() => 1000);
+
+      return index === localIndex;
+    },
+
     triggerForm(url, index) {
+      console.log("current index:", index);
+      localStorage.setItem("accordionIndex", index);
       this.expandedItems[index] = !this.expandedItems[index];
       console.log(this.expandedItems);
       console.log(url);
@@ -109,7 +119,10 @@ export default {
         this.isLoad[index] = false;
       }
     },
+
     goNextBtn() {
+      // event.preventDefault();
+
       this.itemToAllow++;
       console.log(this.itemToAllow);
       this.$refs[`expansionItem${this.ite}`][0].toggle();
@@ -129,12 +142,16 @@ export default {
 
     async getForms(url, index) {
       console.log(index);
-      if (index == 1) {
+      if (index != 0 && index != 4) {
+        const label = this.timelineItems[index].label
         this.$swal({
-          title: "האם אתה בטוח ?",
+          title: label,
           icon: "warning",
-          showCancelButton: true,
-          cancelButtonText: "ביטול",
+          allowOutsideClick: false,
+          confirmButtonText: " אשר/י",
+          customClass: {
+            confirmButton: "swal-confirm-button",
+          },
         }).then((res) => {
           if (res.isConfirmed) {
             this.goNextBtn();
@@ -163,7 +180,6 @@ export default {
     },
   },
 
-  beforeMount() {},
   created() {
     // Initialize expandedItems with the same length as items and set all to false
     this.expandedItems = new Array(this.timelineItems.length).fill(false);
@@ -171,6 +187,10 @@ export default {
 
     console.log("opening:" + this.expandedItems);
     console.log("loading:" + this.isLoad);
+  },
+
+  beforeMount() {
+    localStorage.setItem("accordionIndex", 0);
   },
 };
 </script>

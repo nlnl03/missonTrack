@@ -4,7 +4,7 @@
   <loadingSpinner v-if="!isLoading"/> -->
 
   <div class="main-form">
-    <q-form class="q-gutter-md">
+    <q-form class="q-gutter-md" @submit.prevent="triggerFunction">
       <div class="flex-inputs" v-for="(item, index) in formData" :key="index">
         <div v-if="item.type == 'radio'" style="margin-top: 30px">
           <q-select
@@ -64,8 +64,7 @@
           label="המשך"
           type="continue"
           color="primary"
-          @click="triggerFunction"
-        />
+         />
       </div>
     </q-form>
   </div>
