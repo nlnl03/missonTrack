@@ -56,19 +56,28 @@ export default {
       timelineItems: [
         {
           title: "צ'ק ליסט יציאה לתקלה",
-          component: "formStruc",
           url: "https://caoghxw10k.execute-api.us-east-1.amazonaws.com/dev/items",
         },
         {
           title: "יציאה מהקרייה",
-          component: "loadingSpinner",
           url: "",
         },
         {
-          title: "Date 2",
-          component: "loadingSpinner",
+          title: "הגעה למתקן",
+          url: "",
+        },
+        {
+          title: "סיום משימה",
+          url: "",
+        },
+        {
+          title: "יציאה מהמתקן",
           url: "https://12iuf7y4al.execute-api.us-east-1.amazonaws.com/dev/exitForm",
         },
+        {
+          title: "הגעה לבסיס",
+          url: "",
+        }
         // Add more items as needed
       ],
       expandedItems: [],
@@ -106,7 +115,7 @@ export default {
       this.$refs[`expansionItem${this.ite}`][0].toggle();
       this.ite++;
       console.log(this.ite);
-      if (this.ite < this.timelineItems.length - 1) {
+      if (this.ite < this.timelineItems.length) {
         console.log(this.ite);
         this.$nextTick(() => {
           this.$refs[`expansionItem${this.ite}`][0].toggle();

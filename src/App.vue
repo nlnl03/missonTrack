@@ -140,4 +140,13 @@ body:not(i) {
 [dir="rtl"] .q-gutter-md > * {
   margin-right: 0 !important;
 }
+
+
+.prevent-swal-title{
+  font-size: 1em !important;
+}
+
+.swal-confirm-button{
+ }
+
 </style>

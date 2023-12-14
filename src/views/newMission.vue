@@ -22,6 +22,40 @@ export default {
       this.isLoad = true;
     }, 1000);
   },
+
+  mounted() {
+    window.addEventListener("beforeunload", this.handlePageReload);
+  },
+  beforeUnmount() {
+    window.addEventListener("beforeunload", this.handlePageReload);
+  },
+
+  beforeRouteLeave(to, from, next) {
+    this.$swal({
+      title: "האם את/ה בטוח/ה שברצונך לצאת מדף זה ?",
+      icon: "warning",
+      showCancelButton: true,
+      cancelButtomText: "ביטול",
+      confirmButtonText: "צא/י",
+      customClass:{
+        title:"prevent-swal-title",
+        confirmButton:"swal-confirm-button"
+      }
+    }).then((result) => {
+      if (result.isConfirmed) {
+        next();
+      } else {
+        next(false);
+      }
+    });
+  },
+
+  methods: {
+    handlePageReload(event) {
+      event.preventDefault();
+      event.returnValue = "";
+    },
+  },
 };
 </script>
 
@@ -33,4 +67,5 @@ export default {
   width: 100%;
   height: 70vh;
 }
+
 </style>
