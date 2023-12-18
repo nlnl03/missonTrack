@@ -121,13 +121,16 @@ export default {
 .main-form {
   display: flex;
   justify-content: center;
-  min-height: 80vh;
+  max-height: 65vh;
   font-size: 30px;
+  overflow-y: auto;
 }
 
 .q-gutter-md {
   margin: 0 !important;
   width: 100%;
+  height: 100%;
+
   display: flex;
   flex-direction: column;
   justify-content: center;

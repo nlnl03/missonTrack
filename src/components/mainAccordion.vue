@@ -7,7 +7,10 @@
     ></q-icon>
   </router-link> -->
 
-  <HorizontalTimeline />
+  <HorizontalTimeline
+    :timelineItems="filterTImeLineArray()"
+    :currentIndex="currentIndex"
+  />
 
   <div class="q-pa-md">
     <div class="accordion">
@@ -57,6 +60,8 @@ export default {
         {
           title: "צ'ק ליסט יציאה לתקלה",
           url: "https://caoghxw10k.execute-api.us-east-1.amazonaws.com/dev/items",
+          timeLineLabel: "יציאה למשימה",
+          data: "",
         },
         {
           title: "יציאה מהקרייה",
@@ -69,14 +74,18 @@ export default {
         {
           title: "סיום משימה",
           label: "אנא אשר/י שסיימת את המשימה",
+          timeLineLabel: "סיום משימה",
         },
         {
           title: "יציאה מהמתקן",
           url: "https://12iuf7y4al.execute-api.us-east-1.amazonaws.com/dev/exitForm",
+          data: "",
         },
         {
           title: "הגעה לבסיס",
           label: "אנא אשר/י כי הגעת לבסיס הקרייה",
+          timeLineLabel: "חזרה לקרייה",
+          data: "",
         },
         // Add more items as needed
       ],
@@ -85,13 +94,11 @@ export default {
       isLoad: [],
       itemToAllow: 0,
       ite: 0,
-      url: "",
     };
   },
   methods: {
     showForm(url, index) {
       this.ite = index;
-      this.url = url;
       console.log("ite:" + this.ite);
 
       if (index == 0) {
@@ -121,20 +128,21 @@ export default {
     },
 
     goNextBtn() {
-      // event.preventDefault();
-
       this.itemToAllow++;
       console.log(this.itemToAllow);
       this.$refs[`expansionItem${this.ite}`][0].toggle();
+
+      this.$emit("item-clicked", this.ite);
       this.ite++;
       console.log(this.ite);
+
       if (this.ite < this.timelineItems.length) {
         console.log(this.ite);
         this.$nextTick(() => {
           this.$refs[`expansionItem${this.ite}`][0].toggle();
           console.log(this.ite);
           if (this.ite != 0) {
-            this.triggerForm(this.url, this.ite);
+            this.triggerForm(this.timelineItems[this.ite].url, this.ite);
           }
         });
       }
@@ -143,7 +151,7 @@ export default {
     async getForms(url, index) {
       console.log(index);
       if (index != 0 && index != 4) {
-        const label = this.timelineItems[index].label
+        const label = this.timelineItems[index].label;
         this.$swal({
           title: label,
           icon: "warning",
@@ -178,6 +186,10 @@ export default {
       }
       console.log("yesss");
     },
+
+    filterTImeLineArray() {
+      return this.timelineItems.filter((item) => item.timeLineLabel);
+    },
   },
 
   created() {
@@ -189,8 +201,10 @@ export default {
     console.log("loading:" + this.isLoad);
   },
 
-  beforeMount() {
-    localStorage.setItem("accordionIndex", 0);
+  computed: {
+    currentIndex() {
+      return this.ite;
+    },
   },
 };
 </script>

@@ -46,7 +46,7 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-}
+ }
 
 nav {
   padding: 30px;
@@ -60,6 +60,10 @@ nav a {
 nav a.router-link-exact-active {
   color: #42b983;
 }
+body {
+  position: absolute;
+}
+
 *:not(i),
 body:not(i) {
   font-family: OpenSans !important;
@@ -69,11 +73,11 @@ body:not(i) {
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   background-image: url("@/assets/kiria.jpeg");
   background-size: cover;
   z-index: -1;
-  background-attachment: fixed;
+  /* background-attachment: fixed; */
   background-position: 50%;
   background-repeat: no-repeat;
 }
@@ -83,7 +87,7 @@ body:not(i) {
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   background-color: rgba(0, 0, 0, 0.7);
 }
 
