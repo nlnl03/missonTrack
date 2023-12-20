@@ -9,6 +9,11 @@ export type AmplifyDependentResourcesAttributes = {
       "ApiId": "string",
       "ApiName": "string",
       "RootUrl": "string"
+    },
+    "finalDataApi": {
+      "ApiId": "string",
+      "ApiName": "string",
+      "RootUrl": "string"
     }
   },
   "auth": {
@@ -30,6 +35,13 @@ export type AmplifyDependentResourcesAttributes = {
       "Name": "string",
       "Region": "string"
     },
+    "finalDataLamb": {
+      "Arn": "string",
+      "LambdaExecutionRole": "string",
+      "LambdaExecutionRoleArn": "string",
+      "Name": "string",
+      "Region": "string"
+    },
     "missiontrack9dbd81b1": {
       "Arn": "string",
       "LambdaExecutionRole": "string",
@@ -40,6 +52,16 @@ export type AmplifyDependentResourcesAttributes = {
   },
   "storage": {
     "ExitCheckList": {
+      "Arn": "string",
+      "Name": "string",
+      "PartitionKeyName": "string",
+      "PartitionKeyType": "string",
+      "Region": "string",
+      "SortKeyName": "string",
+      "SortKeyType": "string",
+      "StreamArn": "string"
+    },
+    "finalData": {
       "Arn": "string",
       "Name": "string",
       "PartitionKeyName": "string",

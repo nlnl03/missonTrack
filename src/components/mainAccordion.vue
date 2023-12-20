@@ -127,7 +127,17 @@ export default {
       }
     },
 
-    goNextBtn() {
+    async goNextBtn() {
+      // await this.postFinalData();
+      const filteredData = this.formData.map((item, { id, label, value }) => {
+        if (item.type == "checkbox") {
+          console.log();
+          return { id, label, value };
+        }
+      });
+
+      console.log(filteredData);
+
       this.itemToAllow++;
       console.log(this.itemToAllow);
       this.$refs[`expansionItem${this.ite}`][0].toggle();
@@ -135,6 +145,9 @@ export default {
       this.$emit("item-clicked", this.ite);
       this.ite++;
       console.log(this.ite);
+      console.log(this.formData);
+
+      //trigger post func
 
       if (this.ite < this.timelineItems.length) {
         console.log(this.ite);
@@ -190,6 +203,37 @@ export default {
     filterTImeLineArray() {
       return this.timelineItems.filter((item) => item.timeLineLabel);
     },
+
+    async postFinalData() {
+      try {
+        // Replace this URL with your actual DynamoDB API endpoint
+        const apiUrl =
+          "https://e72i2m4kxg.execute-api.us-east-1.amazonaws.com/dev/items";
+
+        // Example data to be posted to DynamoDB
+        const data = {
+          name: this.formData[0].value,
+          id: this.ite,
+          exitCheckList: this.formData,
+          isOutsideOfKiria: false,
+          isArrivedToFacility: false,
+          isFinished: false,
+          isOut: false,
+          isArrivedToKiria: false,
+        };
+
+        // Making a POST request using Axios and async/await
+        const response = await axios.post(apiUrl, data);
+
+        // Handle the response
+        console.log("Data posted to DynamoDB:", response.data);
+        // You can perform further actions based on the response if needed
+      } catch (error) {
+        // Handle any errors that occurred during the POST request
+        console.error("Error posting data to DynamoDB:", error);
+        // You can display an error message or perform error-specific actions
+      }
+    },
   },
 
   created() {
@@ -206,6 +250,7 @@ export default {
       return this.ite;
     },
   },
+  beforeMount() {},
 };
 </script>
 

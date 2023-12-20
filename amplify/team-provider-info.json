@@ -21,6 +21,10 @@
         "ExitCheckListFunc": {
           "deploymentBucketName": "amplify-missiontrack-dev-205638-deployment",
           "s3Key": "amplify-builds/ExitCheckListFunc-45567741784c6e73686c-build.zip"
+        },
+        "finalDataLamb": {
+          "deploymentBucketName": "amplify-missiontrack-dev-205638-deployment",
+          "s3Key": "amplify-builds/finalDataLamb-4b36364e6230496f506c-build.zip"
         }
       },
       "auth": {
@@ -28,11 +32,13 @@
       },
       "storage": {
         "missionTable": {},
-        "ExitCheckList": {}
+        "ExitCheckList": {},
+        "finalData": {}
       },
       "api": {
         "apie83761d5": {},
-        "ExitCheckListApi": {}
+        "ExitCheckListApi": {},
+        "finalDataApi": {}
       }
     }
   }

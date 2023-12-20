@@ -27,6 +27,20 @@
       ],
       "providerPlugin": "awscloudformation",
       "service": "API Gateway"
+    },
+    "finalDataApi": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "finalDataLamb"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "API Gateway"
     }
   },
   "auth": {
@@ -70,6 +84,25 @@
           ],
           "category": "storage",
           "resourceName": "ExitCheckList"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "finalDataLamb": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributeEnvMap": {
+            "Arn": "TABLE_ARN",
+            "Name": "TABLE_NAME"
+          },
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "storage",
+          "resourceName": "finalData"
         }
       ],
       "providerPlugin": "awscloudformation",
@@ -121,6 +154,22 @@
         }
       ]
     },
+    "AMPLIFY_function_finalDataLamb_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "finalDataLamb"
+        }
+      ]
+    },
+    "AMPLIFY_function_finalDataLamb_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "finalDataLamb"
+        }
+      ]
+    },
     "AMPLIFY_function_missiontrack9dbd81b1_deploymentBucketName": {
       "usedBy": [
         {
@@ -140,6 +189,10 @@
   },
   "storage": {
     "ExitCheckList": {
+      "providerPlugin": "awscloudformation",
+      "service": "DynamoDB"
+    },
+    "finalData": {
       "providerPlugin": "awscloudformation",
       "service": "DynamoDB"
     },
