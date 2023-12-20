@@ -131,7 +131,12 @@ export default {
       // await this.postFinalData();
       const filteredData = this.formData.map((item, { id, label, value }) => {
         if (item.type == "checkbox") {
-          console.log();
+          item.options.map((midItem) => {
+            if (midItem["checked"]) {
+              return { id, label, value: midItem.opt };
+            }
+          });
+        } else {
           return { id, label, value };
         }
       });
