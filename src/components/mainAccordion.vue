@@ -8,50 +8,40 @@
   </router-link> -->
 
   <HorizontalTimeline
-    :timelineItems="filterTImeLineArray()"
-    :currentIndex="currentIndex"
-  />
+    :timelineItem="timelineItems[stepNumber]"
+    :stepNumber="stepNumber+1"
+    />
 
   <div class="q-pa-md">
     <div class="accordion">
-      <q-expansion-item
-        :no-transition="true"
-        v-for="(item, index) in timelineItems"
-        :key="index"
-        :label="item.title"
-        @click="showForm(item.url, index)"
-        :ref="`expansionItem${index}`"
-        :disable="allowNext(index)"
-      >
-        <q-card style="background: none" :no-transition="true">
-          <q-card-section :no-transition="true">
-            <div class="loading-page" v-if="!isLoad[index]">
-              <loadingSpinner />
-            </div>
-            <formStruc
-              :formData="formData"
+  
+     
+            <formStruc :key="index"   v-for="(step, index) in formPlaceholderData"
+              v-show="index==stepNumber" 
+              :updateItems="updateItems"
+              :formPlaceholderData="step"
+              :updateCheckbox="updateCheckbox"
               :index="index"
-              v-if="isLoad[index]"
+              :formData="formData"
               :triggerFunction="goNextBtn"
             />
-          </q-card-section>
-        </q-card>
-      </q-expansion-item>
+    
     </div>
   </div>
 </template>
 
 <script>
+// import LowerNavbar from "./LowerNavbar.vue";
 import axios from "axios";
 import formStruc from "./formStruc.vue";
-import loadingSpinner from "./loadingSpinner.vue";
 import HorizontalTimeline from "./HorizontalTimeline.vue";
-
+import { checkboxFields} from '../checkboxFields'
 export default {
   name: "mainAccordion",
-  components: {
+  components: {   
     formStruc,
-    loadingSpinner,
+    // LowerNavbar,
+
     HorizontalTimeline,
   },
   data() {
@@ -59,47 +49,53 @@ export default {
       timelineItems: [
         {
           title: "צ'ק ליסט יציאה לתקלה",
-          url: "https://caoghxw10k.execute-api.us-east-1.amazonaws.com/dev/items",
-          timeLineLabel: "יציאה למשימה",
-          data: "",
+          subTitle: "יציאה למשימה",
         },
         {
           title: "יציאה מהקרייה",
-          label: "אנא אשר/י כי ברצונך לצאת משטח הקרייה",
+          subTitle: "אנא אשר/י כי ברצונך לצאת משטח הקרייה",
         },
         {
           title: "הגעה למתקן",
-          label: "אנא אשר/י כי הגעת למתקן המיועד",
+          subTitle: "אנא אשר/י כי הגעת למתקן המיועד",
         },
         {
           title: "סיום משימה",
-          label: "אנא אשר/י שסיימת את המשימה",
-          timeLineLabel: "סיום משימה",
+          subTitle: "אנא אשר/י שסיימת את המשימה",
         },
         {
           title: "יציאה מהמתקן",
-          url: "https://12iuf7y4al.execute-api.us-east-1.amazonaws.com/dev/exitForm",
-          data: "",
+          subTitle: "אנא אשר שיצאת מהמתקן",
+
         },
         {
           title: "הגעה לבסיס",
-          label: "אנא אשר/י כי הגעת לבסיס הקרייה",
-          timeLineLabel: "חזרה לקרייה",
-          data: "",
+          subTitle: "אנא אשר/י כי הגעת לבסיס הקרייה",
+        
         },
         // Add more items as needed
       ],
       expandedItems: [],
-      formData: [],
+      formData:{},
+      formPlaceholderData: [],
       isLoad: [],
       itemToAllow: 0,
       ite: 0,
+      stepNumber:0
     };
   },
   methods: {
+    updateCheckbox({value,field,option}){
+    console.log(value,field,option)
+      this.formData[field][option] = value  
+
+    },
+    updateItems({field,value}){
+      console.log({field,value})
+      this.formData[field] = value
+    },
     showForm(url, index) {
       this.ite = index;
-      console.log("ite:" + this.ite);
 
       if (index == 0) {
         this.triggerForm(url, index);
@@ -128,42 +124,12 @@ export default {
     },
 
     async goNextBtn() {
-      // await this.postFinalData();
-      const filteredData = this.formData.map((item, { id, label, value }) => {
-        if (item.type == "checkbox") {
-          item.options.map((midItem) => {
-            if (midItem["checked"]) {
-              return { id, label, value: midItem.opt };
-            }
-          });
-        } else {
-          return { id, label, value };
-        }
-      });
-
-      console.log(filteredData);
-
-      this.itemToAllow++;
-      console.log(this.itemToAllow);
-      this.$refs[`expansionItem${this.ite}`][0].toggle();
-
-      this.$emit("item-clicked", this.ite);
-      this.ite++;
-      console.log(this.ite);
-      console.log(this.formData);
+    
+      this.stepNumber++
 
       //trigger post func
 
-      if (this.ite < this.timelineItems.length) {
-        console.log(this.ite);
-        this.$nextTick(() => {
-          this.$refs[`expansionItem${this.ite}`][0].toggle();
-          console.log(this.ite);
-          if (this.ite != 0) {
-            this.triggerForm(this.timelineItems[this.ite].url, this.ite);
-          }
-        });
-      }
+      
     },
 
     async getForms(url, index) {
@@ -186,9 +152,9 @@ export default {
       } else {
         try {
           const response = await axios.get(url);
-          this.formData = response.data;
-          this.formData = this.formData.sort((a, b) => a.id - b.id);
-          console.log(this.formData);
+          this.formPlaceholderData = response.data;
+          this.formPlaceholderData = this.formPlaceholderData.sort((a, b) => a.id - b.id);
+          console.log(this.formPlaceholderData);
 
           this.isLoad[index] = true;
         } catch (error) {
@@ -205,9 +171,7 @@ export default {
       console.log("yesss");
     },
 
-    filterTImeLineArray() {
-      return this.timelineItems.filter((item) => item.timeLineLabel);
-    },
+ 
 
     async postFinalData() {
       try {
@@ -217,9 +181,9 @@ export default {
 
         // Example data to be posted to DynamoDB
         const data = {
-          name: this.formData[0].value,
+          name: this.formPlaceholderData[0].value,
           id: this.ite,
-          exitCheckList: this.formData,
+          exitCheckList: this.formPlaceholderData,
           isOutsideOfKiria: false,
           isArrivedToFacility: false,
           isFinished: false,
@@ -246,8 +210,6 @@ export default {
     this.expandedItems = new Array(this.timelineItems.length).fill(false);
     this.isLoad = new Array(this.timelineItems.length).fill(false);
 
-    console.log("opening:" + this.expandedItems);
-    console.log("loading:" + this.isLoad);
   },
 
   computed: {
@@ -255,7 +217,30 @@ export default {
       return this.ite;
     },
   },
-  beforeMount() {},
+  
+  async beforeMount() {
+    let items;
+    try{
+       items = await axios.get(process.env.NODE_ENV== 'development'?'http://localhost:3000/placeholders' : '/placeholders' )
+       this.formPlaceholderData = items.data
+       for (let step of this.formPlaceholderData){
+            delete step['id']
+            console.log(step)
+         for (const field of Object.keys(step)){
+          if(!checkboxFields.includes(field)){
+            this.formData[field] = ''
+          }else{
+            this.formData[field] ={}
+            step[field].forEach(element => {
+              this.formData[field][element] = false 
+            });
+          }
+         }
+        }
+      }catch(err){
+        console.log(err)
+    }
+  }, 
 };
 </script>
 
@@ -269,7 +254,7 @@ export default {
 }
 .accordion {
   width: 98%;
-  background-color: rgba(255, 255, 255, 0.664);
+  /* background-color: rgba(255, 255, 255, 0.664); */
   border-radius: 10px;
 }
 .q-focus-helper,

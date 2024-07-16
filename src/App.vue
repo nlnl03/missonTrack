@@ -36,7 +36,17 @@ export default {
   transition: none !important;
   animation: none !important;
 }
+.q-field__control {
+  color: orange !important;
+}
 
+.q-field__bottom {
+  color: orange !important;
+}
+
+.q-field__control:hover {
+  color: orange !important;
+}
 @font-face {
   font-family: OpenSans;
   src: url("@/assets/OpenSans.ttf");

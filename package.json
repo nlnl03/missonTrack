@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
+    "start": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
@@ -15,6 +15,7 @@
     "aws4": "^1.12.0",
     "caniuse-lite": "^1.0.30001543",
     "core-js": "^3.8.3",
+    "json-server": "^1.0.0-beta.1",
     "postcss-rtlcss": "^4.0.3",
     "quasar": "^2.0.0",
     "vue": "^3.2.13",

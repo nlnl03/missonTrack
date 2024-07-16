@@ -1,0 +1,25 @@
+{
+  "placeholders": [
+    {
+      "site_number": ["2","4","5","6","20"],
+      "user_name": [
+        "אביב גנון",
+
+        "איתי גרנות מור",
+        "נאור שמסיאן",
+        "מקסים דשבסקי",
+        "מתן ההברמן"
+      ],
+      "ahmash": ["יונתן רול"],
+      "equipment": ["equip1", "equip2", "equip3"],
+
+      "equipment_ahmashim": ["equip1", "equip2", "equip3"]
+    },
+    { "out_kirya": "" },
+    { "arrived": "" },
+    { "returned": "" },
+    {
+      "checkboxes": ["mazgan1", "mazgan2", "mazgan3"]
+    }
+  ]
+}

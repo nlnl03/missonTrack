@@ -1,47 +1,23 @@
 <template>
+  
   <div class="row-flex">
-    <div class="rows">
-      <div
-        class="order-tracking"
-        v-for="(item, index) in timelineItems"
-        :key="index"
-        :ref="`divRef${index}`"
-      >
-        <span class="is-complete"></span>
-        <p>
-          {{ item.timeLineLabel }}
-          <br />
-          <span>{{ item.date }}</span>
-        </p>
-      </div>
-      <!-- <div class="order-tracking completed">
-     <span class="is-complete"></span>
-       <p>
-        יציאה מהקרייה
-        <br>
-        <span>Tue, June 25</span>
-       </p>
-    </div>
-    <div class="order-tracking">
-     <span class="is-complete"></span>
-       <p>
-        שלב 3
-        <br>
-        <span>Fri, June 28</span>
-       </p>
-    </div> -->
-    </div>
+    <div class="headers">
+      <h6>{{ timelineItem.title }} </h6>
+      <span>{{ timelineItem.subTitle }}</span>
   </div>
+    <circularProgress   :step="stepNumber"  />
+   
+  </div>
+ 
 </template>
 
 <script>
+
+import circularProgress from './CircularProgress.vue';
 export default {
-  props: {
-    timelineItems: Array,
-    currentIndex: {
-      type: Number,
-      required: true,
-    },
+  props: ["timelineItem","stepNumber"],
+  components:{
+    circularProgress,
   },
   methods: {
     accessRefs() {
@@ -106,11 +82,35 @@ export default {
 </script>
 
 <style scoped>
-.row-flex {
-  margin-top: 70px;
-  width: 100%;
+.headers{
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+.headers h6{
+  margin: 0 ;
+  line-height: 1.8rem;
+  text-align: left;
+  color: white;
+  font-size: 18px;
+}
+.headers span{
+  color: grey;
+}
+.row-flex {
+  
+  padding-top: 40px;
+  /* margin-bottom: 30px; */
+  width: 100%;
+  /* padding:0px 5px 0px 5px; */
+  background: linear-gradient(to bottom, black, transparent);
+  /* transform: translate(); */
+  /* margin: 0 auto; */
+  display: flex;
+  /* position: fixed; */
+  gap: 40px;
+  justify-content: space-evenly;
 }
 .rows {
   display: flex;

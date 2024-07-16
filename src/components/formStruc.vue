@@ -4,66 +4,55 @@
   <loadingSpinner v-if="!isLoading"/> -->
 
   <div class="main-form">
+   
     <q-form class="q-gutter-md" @submit.prevent="triggerFunction">
-      <div class="flex-inputs" v-for="(item, index) in formData" :key="index">
-        <div v-if="item.type == 'radio'" style="margin-top: 30px">
+      
+    
+      <div class="flex-inputs" v-for="(item, index) in Object.keys(formPlaceholderData)" :key="index">
+        <div v-if="dropDownFields.includes(item)" >
           <q-select
-            :label="item.label"
+            :label="labels[item]"
             behavior="dialog"
             filled
-            v-model="item.value"
-            :options="item.options"
-            class="radio-inputs"
+          :model-value="formData[item]"
+          @update:modelValue="clickHandler($event,item)"
+            :options="formPlaceholderData[item]"    
+            class="custom-select"
             :rules="[(val) => (val && val.length > 0) || 'זהו שדה חובה.']"
-          />
-          <!-- <q-radio
-            v-for="(name, index) in item.options"
-            :key="index"
-            v-model="item.value"
-            :val="name"
-            :label="name"
-            color="white"
-            class="radio-inputs"
-          /> -->
-        </div>
-
-        <div class="input-text" v-if="item.type == 'text'">
-          <q-input
-            dir="rtl"
-            filled
-            v-model="item.value"
-            type="number"
-            color="white"
-            :label="item.label"
-            bg-color="light-grey"
-            lazy-rules
-            :rules="[(val) => (val && val.length > 0) || 'זהו שדה חובה.']"
-          />
-        </div>
-
-        <div class="q-pa-md" v-if="item.type == 'checkbox'" ref="checkBoxVal">
-          <label style="text-align: right; margin-bottom: 20px"
-            >{{ item.label }}:</label
           >
-          <q-checkbox
-            v-for="(option, index) in item.options"
+
+          
+
+        </q-select>
+       
+        </div>
+        <button class="approve-btn" v-if="buttons.includes(item)"> 
+          {{ labels[item] }}
+          <q-icon name="access_time" class="q-mt-sm" />
+
+        </button>
+        <div class="q-pa-md" v-if="checkboxFields.includes(item)" ref="checkBoxVal">
+          <label style="text-align: right; margin-bottom: 20px"
+            >{{ labels[item] }}:</label          >
+          <q-checkbox color="orange"
+            v-for="(option, index) in formPlaceholderData[item]"
             :key="index"
-            v-model="option.checked"
-            @change="validateCheckbox"
+            @update:model-value="checkboxClickHandler($event,item,option)"
             keep-color
-            :label="option.opt"
+            :model-value="formData[item][option]"
+            :label="option"
             class="checkbox"
-            :rules="[option.checked || 'זהו שדה חובה.']"
+            :rules="[formData[item][option] || 'זהו שדה חובה.']"
           />
         </div>
       </div>
-
-      <div class="submit-btn">
+     
+      <div  class="submit-btn-container">
         <q-btn
           class="submit-btn"
           label="המשך"
           type="continue"
-          color="primary"
+          color="orange"
          />
       </div>
     </q-form>
@@ -71,19 +60,19 @@
 </template>
 
 <script>
+import {checkboxFields,labels,dropDownFields,buttons} from '../checkboxFields'
+
 export default {
   name: "outForm",
   components: {},
-  props: {
-    formData: Array,
-    triggerFunction: {
-      type: Function,
-      required: true,
-    },
-    index: Number,
-  },
+  props: ["formData","formPlaceholderData",'triggerFunction',"index",'updateItems',"updateCheckbox"]
+  ,
   data() {
     return {
+      buttons,
+      checkboxFields,
+      dropDownFields,
+      labels,
       exitCheckList: [],
       numOfFacility: null,
       isLoading: false,
@@ -91,26 +80,52 @@ export default {
     };
   },
   methods: {
+    checkboxClickHandler(value,field,option){
+
+      this.updateCheckbox({value,field,option})
+    },
+    clickHandler(event,data){
+      console.log(event,data)
+      this.updateItems({field:data,value:event})
+    },
     validateCheckbox() {
-      console.log("djchdch");
     },
     goNextBtn() {
       console.log(this.isCheckedValid);
     },
   },
   beforeMount() {
-    //  setTimeout(() => {
-    //   this.isLoading = true;
-    // }, 700);
-  },
+  console.log(this.formData)
+  console.log(this.formPlaceholderData)    
+  },  
 };
 </script>
 
 <style scoped>
-.submit-btn {
+
+.approve-btn{
+  background-color: orange;
+  color: black;
+  border-radius: 50%;
+  height: 300px;
   position: relative;
-  margin-top: 5px;
-  margin-bottom: 7%;
+  left: 10%;
+  width: 300px;
+}
+.submit-btn-container{
+  /* margin-top: 5px; */
+  position: fixed;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  width: 100%;
+  height: 80px;
+  background: linear-gradient(to top, black, transparent);
+
+  bottom: 0%;
+  display:flex;
+
+  /* margin-bottom: 7%; */
 }
 .title {
   font-size: 35px;
@@ -135,11 +150,11 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 2px solid rgba(234, 228, 228, 0.301);
-  background-color: rgba(0, 0, 0, 0.8);
+  /* border: 2px solid rgba(234, 228, 228, 0.301);
+  background-color: rgba(0, 0, 0, 0.8); */
 }
 .flex-inputs {
-  width: 85%;
+  width: 90%;
   color: white;
   text-align: left;
 }
